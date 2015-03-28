@@ -1,0 +1,57 @@
+{
+  "name": "react-travel",
+  "version": "0.0.1",
+  "description": "React Travel",
+  "scripts": {
+    "watch": "watchify app/browser.js -o dist/bundle.js -v",
+    "build": "browserify app/browser.js > dist/bundle.js && lessc css/app.css > dist/bundle.css",
+    "start": "babel-node app/server",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sideroad/react-travel"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "sideroad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sideroad/react-travel/issues"
+  },
+  "homepage": "https://github.com/sideroad/react-travel",
+  "devDependencies": {
+    "babel-jest": "^4.0.0",
+    "babelify": "^5.0.3",
+    "browserify": "^9.0.3",
+    "jest-cli": "^0.4.0",
+    "watchify": "^2.2.1"
+  },
+  "dependencies": {
+    "babel": "^4.5.5",
+    "express": "^4.11.1",
+    "flux": "^2.0.1",
+    "less": "^2.4.0",
+    "object-assign": "^2.0.0",
+    "react": "^0.12.0",
+    "react-router": "^0.12.4",
+    "superagent": "^0.21.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify"
+      ]
+    ]
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+      "node_modules/react"
+    ]
+  },
+  "engines": {
+    "node": "0.12.0"
+  }
+}
