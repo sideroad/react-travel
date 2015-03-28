@@ -18,7 +18,7 @@ export default React.createClass({
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
         <link rel="stylesheet" href="bundle.css" />
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+        <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry,places"></script>
       </head>
       <body>
         <div id="app" className="container">

@@ -1,7 +1,7 @@
 'use strict';
 
 import React                    from 'react/addons';
-import AppPlaceActionCreators from '../actions/AppPlaceActionCreators';
+import PlaceAction from '../actions/PlaceAction';
 
 
 export default React.createClass({
@@ -21,7 +21,7 @@ export default React.createClass({
       if (places.length == 0) {
         return;
       }
-      AppPlaceActionCreators.updatePlace(places[0]);
+      PlaceAction.updatePlace(places[0]);
     });
   },
   _onSubmit(e){
