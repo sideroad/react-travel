@@ -30,8 +30,8 @@ export default Reflux.createStore({
     spot.stayFrom = moment().add(1, 'days').format('YYYY-MM-DDTHH:mm');
     spot.leftBy  = config.LEFT_BY[0];
     request
-      .get(config.API_HOST + '/'+config.LANG+'/itinerary/add/' )
-      .query(spot)
+      .post(config.API_HOST + '/'+config.LANG+'/itinerary/add/' )
+      .send(spot)
       .end((err, res) => {
         results.push(spot);
         that.trigger({
