@@ -6,7 +6,7 @@ import config  from '../config';
 import Actions from '../actions';
 import moment  from 'moment';
 
-var results = [];
+var items = [];
 export default Reflux.createStore({
 
   init: function() {
@@ -19,23 +19,25 @@ export default Reflux.createStore({
       .get(config.API_HOST + '/'+config.LANG+'/itinerary/' )
       .accept('json')
       .end((err, res) => {
+        items = res.body;
         that.trigger({
-          items: res.body || []
+          items: items
         });
     });
   },
 
   onAddItem: function( spot ){
     var that = this;
+    spot.order = items.length + 1;
     spot.stayFrom = moment().add(1, 'days').format('YYYY-MM-DDTHH:mm');
     spot.leftBy  = config.LEFT_BY[0];
     request
       .post(config.API_HOST + '/'+config.LANG+'/itinerary/add/' )
       .send(spot)
       .end((err, res) => {
-        results.push(spot);
+        items.push(spot);
         that.trigger({
-          items: results
+          items: items
         });
       });
   }

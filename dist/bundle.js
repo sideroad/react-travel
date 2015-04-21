@@ -203,7 +203,7 @@ module.exports = React.createClass({
           item.name
         );
 
-        var key = item.id + "-" + index;
+        var key = item.id + "-" + item.order;
 
         $items.push(React.createElement(
           "div",
@@ -891,7 +891,7 @@ var Actions = _interopRequire(require("../actions"));
 
 var moment = _interopRequire(require("moment"));
 
-var results = [];
+var items = [];
 module.exports = Reflux.createStore({
 
   init: function init() {
@@ -901,20 +901,22 @@ module.exports = Reflux.createStore({
   onGetItinerary: function onGetItinerary(place) {
     var that = this;
     request.get(config.API_HOST + "/" + config.LANG + "/itinerary/").accept("json").end(function (err, res) {
+      items = res.body;
       that.trigger({
-        items: res.body || []
+        items: items
       });
     });
   },
 
   onAddItem: function onAddItem(spot) {
     var that = this;
+    spot.order = items.length + 1;
     spot.stayFrom = moment().add(1, "days").format("YYYY-MM-DDTHH:mm");
     spot.leftBy = config.LEFT_BY[0];
-    request.get(config.API_HOST + "/" + config.LANG + "/itinerary/add/").query(spot).end(function (err, res) {
-      results.push(spot);
+    request.post(config.API_HOST + "/" + config.LANG + "/itinerary/add/").send(spot).end(function (err, res) {
+      items.push(spot);
       that.trigger({
-        items: results
+        items: items
       });
     });
   }

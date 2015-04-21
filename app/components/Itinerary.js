@@ -56,7 +56,7 @@ export default React.createClass({
 
       let title = item.website ? (<a href={item.website} target="_blank" >{item.name}</a>) : (<span>{item.name}</span>);
 
-      let key = item.id + '-' + index;
+      let key = item.id + '-' + item.order;
 
       $items.push(
         <div className="rt-item col-sm-6 col-md-3" key={key} > 
