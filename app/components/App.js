@@ -15,17 +15,17 @@ export default React.createClass({
         <meta httpEquiv="Cache-Control" content="no-cache" />
         <meta httpEquiv="Pragma" content="no-cache" />
         <meta charSet="utf8" />
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
-        <link rel="stylesheet" href="bundle.css" />
-        <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry,places"></script>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="/bundle.css" />
+        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places,geometry" />
       </head>
       <body>
-        <div id="app" className="container">
+        <div id="app">
           <RouteHandler />
         </div>
       </body>
-      <script src="bundle.js?v=20150130"></script>
+      <script src="/bundle.js?v=20150130" />
       </html>
     );
   }

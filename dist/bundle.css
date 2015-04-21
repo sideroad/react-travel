@@ -4,10 +4,82 @@ body {
   margin: 0px;
   padding: 0px;
 }
-#map-canvas {
-  height: 50%;
+#app .rt-circle-btn {
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  overflow: hidden;
+  margin-right: 5px;
+}
+#app .rt-circle-btn span {
+  margin-left: -3px;
+  margin-top: -3px;
+}
+#app .rt-spot-type {
+  bottom: 70px;
+  margin-right: 10px;
+  position: relative;
+  z-index: 1000;
+}
+#app .rt-map {
+  margin-bottom: 10px;
+  position: relative;
+}
+#app .rt-map .main {
+  height: 75%;
   margin: 0px;
   padding: 0px;
+  background-color: gray;
+}
+#app .rt-map #impress {
+  background-image: url('/beach.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#app .rt-close-btn {
+  position: absolute;
+  right: 20px;
+}
+#app .rt-map-info {
+  position: absolute;
+  top: 80px;
+  width: 30%;
+  right: 0px;
+}
+#app .rt-map-info img {
+  height: 28%;
+}
+#app .rt-place {
+  position: absolute;
+  top: 45%;
+  z-index: 10000;
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+  -webkit-transition-property: top;
+  -webkit-transition-duration: 1s;
+  -webkit-transition-timing-function: ease;
+  -webkit-transition-delay: 0s;
+}
+#app .in-map {
+  top: 80px;
+  padding-left: 80px;
+  margin-top: 10px;
+}
+#app .rt-place-search {
+  color: white;
+}
+#app #pac-input {
+  border-width: 2px;
+  border-color: #2aabd2;
+}
+#app .ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#app .stars {
+  color: #f0ad4e;
 }
 .controls {
   margin-top: 16px;
@@ -18,20 +90,4 @@ body {
   height: 32px;
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-#pac-input {
-  background-color: #fff;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 300;
-  margin-left: 12px;
-  padding: 0 11px 0 13px;
-  text-overflow: ellipsis;
-  width: 400px;
-}
-#pac-input:focus {
-  border-color: #4d90fe;
-}
-.pac-container {
-  font-family: Roboto;
 }

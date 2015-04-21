@@ -3,15 +3,15 @@
 import React    from 'react';
 import App      from './components/App';
 import Top      from './components/Top';
-import Hotels   from './components/Hotels';
+import Spot     from './components/Spot';
 import {
   Route,
   DefaultRoute,
 } from 'react-router';
 
 export default (
-    <Route name="top" handler={App} path="/">
-      <Route name="hotels"  handler={Hotels} />
+    <Route name="app" handler={App} path="/">
       <DefaultRoute handler={Top} />
+      <Route name="spot" handler={Spot} path="/spot/:place" />
     </Route>
 )

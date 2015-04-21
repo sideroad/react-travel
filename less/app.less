@@ -1,0 +1,102 @@
+html, body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px
+}
+
+#app{
+  .rt-circle-btn {
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    overflow: hidden;
+    margin-right: 5px;
+    span {    
+      margin-left: -3px;
+      margin-top: -3px;
+    }
+  }
+  .rt-spot-type {
+    bottom: 70px;
+    margin-right: 10px;
+    position: relative;
+    z-index: 1000;
+  }
+  .rt-map {
+    margin-bottom: 10px;
+    position: relative;
+
+    .main {
+      height: 75%;
+      margin: 0px;
+      padding: 0px;
+      background-color: gray;
+    }
+
+    #impress {
+      background-image: url('/beach.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+  .rt-close-btn {
+    position: absolute;
+    right: 20px;
+  }
+  .rt-map-info {
+    position: absolute;
+    top: 80px;
+    width: 30%;
+    right: 0px;
+
+    img {
+      height: 28%;
+    }
+  }
+  .rt-place{
+    position: absolute;
+    top: 45%;
+    z-index: 10000;
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+
+    -webkit-transition-property: top;
+    -webkit-transition-duration: 1s;
+    -webkit-transition-timing-function: ease;
+    -webkit-transition-delay: 0s;
+
+  }
+  .in-map {
+    top: 80px;
+    padding-left: 80px;
+    margin-top: 10px;
+  }
+
+  .rt-place-search{
+    color: white;
+  }
+  #pac-input{
+    border-width: 2px;
+    border-color: #2aabd2;
+  }
+  .ellipsis{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .stars{
+    color: #f0ad4e;
+  }
+}
+
+.controls {
+  margin-top: 16px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
