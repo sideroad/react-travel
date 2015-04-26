@@ -1,26 +1,42 @@
 'use strict';
 
-import React     from 'react';
-import Router from 'react-router';
+import ItineraryAction from '../actions/ItineraryAction';
+import React           from 'react';
+import Router          from 'react-router';
 import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
-import Actions from '../actions';
 
 export default React.createClass({
   displayName: 'SpotDetail',
+
+  getInitialState(){
+    return {
+      showDetail: this.props.showDetail
+    };
+  },
 
   contextTypes: {
     router: React.PropTypes.func.isRequired
   },
 
-  addItem(e) {
+  add(e) {
     e.preventDefault();
-    Actions.addItem(this.props.spot);
+    ItineraryAction.add(this.props.spot);
+  },
+
+  close(e){
+    e.preventDefault();
+    this.setState({
+      showDetail: false
+    });
   },
 
   render() {
     let spot = this.props.spot;
     let stars = [];
     let roundRating = Math.round(spot.rating);
+    let style = {
+      display: this.state.showDetail ? 'block' : 'none'
+    };
 
     for( let i of [1,2,3,4,5] ){
       if(roundRating >= i) {
@@ -38,14 +54,14 @@ export default React.createClass({
     let title = spot.website ? (<a href={spot.website} target="_blank" >{spot.name}</a>) : (<span>{spot.name}</span>);
 
     return (
-      <div className="col-sm-6 col-md-4 pull-right rt-map-info">
+      <div className="col-sm-6 col-md-4 pull-right rt-map-info" style={style} >
         <div className="thumbnail">
           <div className="rt-close-btn">
-            <a href="#"><span className="glyphicon glyphicon-remove"></span></a>
+            <a href="#" onClick={this.close} ><span className="glyphicon glyphicon-remove"></span></a>
           </div>
           {img}
           <div className="caption clearfix">
-            <h4 className="ellipsis">{title}</h4>
+            <h5 className="ellipsis">{title}</h5>
             <p>
               {spot.address}
             </p>
@@ -56,7 +72,7 @@ export default React.createClass({
               {spot.rating}
             </p>
             <div className="pull-right">
-              <a href="#" onClick={this.addItem} className="btn btn-primary" role="button"><span className="glyphicon glyphicon-heart" /></a>
+              <a href="#" onClick={this.add} className="btn btn-primary" role="button"><span className="glyphicon glyphicon-heart" /></a>
             </div>
           </div>
         </div>
