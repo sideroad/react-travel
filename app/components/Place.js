@@ -1,23 +1,22 @@
 'use strict';
 
-import React  from 'react/addons';
-import Reflux from 'reflux';
-import Router from 'react-router';
+import React      from 'react/addons';
+import Router     from 'react-router';
+import PlaceStore from '../stores/PlaceStore';
 import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
 
 export default React.createClass({
   displayName: 'Place',
-  mixins: [Reflux.LinkedStateMixin, React.addons.LinkedStateMixin],
+  mixins: [ React.addons.LinkedStateMixin ],
   contextTypes: {
     router: React.PropTypes.func.isRequired
   },
 
   getInitialState(){
     return {
-      place: ''
+      place: PlaceStore.getPlace()
     };
   },
-
   componentDidMount() {
     var input = document.getElementById('pac-input'),
         searchBox = new google.maps.places.SearchBox(input);

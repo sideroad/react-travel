@@ -1,30 +1,61 @@
 'use strict';
 
-import Reflux  from 'reflux';
-import request from 'superagent';
+import Marty  from 'marty';
 import config  from '../config';
-import Actions from '../actions';
+import constants  from '../constants';
+import PlaceQueries  from '../queries/PlaceQueries';
 
-export default Reflux.createStore({
+class PlaceStore extends Marty.Store {
+  constructor(options) {
+    super(options);
+    this.state = {
+      place: '',
+      spots: {}
+    };
+    this.handlers = {
+      addSpots: constants.PLACE_GET_SPOTS
+    };
+  }
 
-  init: function() {
-    this.listenToMany(Actions);
-  },
+  addSpots(spots, place, id) {
+    this.state.place = place;
+    this.state.spots[place || id] = spots;
+    this.hasChanged();
+  }
 
-  onPlaceUpdate: function( place ) {
-    var self = this;
-    request
-      .get(config.API_HOST + '/'+config.LANG+'/spots/' + decodeURIComponent( place ))
-      .accept('json')
-      .end((err, res) => {
-        let results = res.body || [];
+  getNearby(options){
+    options.id = [ 
+               options.lat,
+               options.lng,
+               options.types
+             ].join('/');
 
-        self.trigger({
-          place: place,
-          spots: results.slice(0,1)
-        });
+    return this.fetch({
+      id: options.id,
+      locally(){
+        return this.state.spots[options.id];
+      },
+      remotely(){
+        return PlaceQueries.for(this).getNearby(options);
+      }
     });
   }
 
-});
+  getPlace() {
+    return this.state.place;
+  }
 
+  getSpot( place ) {
+    return this.fetch({
+      id: place,
+      locally() {
+        return this.state.spots[place];
+      },
+      remotely() {
+        return PlaceQueries.for(this).getSpot(place);
+      }
+    });
+  }
+}
+
+export default Marty.register(PlaceStore);

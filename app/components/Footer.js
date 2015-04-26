@@ -10,7 +10,7 @@ export default React.createClass({
       <footer>
         <div className="well well-lg">
           <Link to="top">TOP</Link>&nbsp;|&nbsp;
-          <a href="https://github.com/koba04/react-boilerplate">github</a>
+          <a href="https://github.com/sideroad/react-travel/">github</a>
         </div>
       </footer>
     );

@@ -1,46 +1,40 @@
 'use strict';
 
-import Reflux  from 'reflux';
-import request from 'superagent';
-import config  from '../config';
-import Actions from '../actions';
-import moment  from 'moment';
+import config           from '../config';
+import Marty            from 'marty';
+import ItineraryAPI     from '../sources/ItineraryAPI';
+import ItineraryQueries from '../queries/ItineraryQueries';
+import constants        from '../constants';
+import _                from 'lodash';
 
-var items = [];
-export default Reflux.createStore({
-
-  init: function() {
-    this.listenToMany(Actions);
-  },
-
-  onGetItinerary: function( place ) {
-    var that = this;
-    request
-      .get(config.API_HOST + '/'+config.LANG+'/itinerary/' )
-      .accept('json')
-      .end((err, res) => {
-        items = res.body;
-        that.trigger({
-          items: items
-        });
-    });
-  },
-
-  onAddItem: function( spot ){
-    var that = this;
-    spot.order = items.length + 1;
-    spot.stayFrom = moment().add(1, 'days').format('YYYY-MM-DDTHH:mm');
-    spot.leftBy  = config.LEFT_BY[0];
-    request
-      .post(config.API_HOST + '/'+config.LANG+'/itinerary/add/' )
-      .send(spot)
-      .end((err, res) => {
-        items.push(spot);
-        that.trigger({
-          items: items
-        });
-      });
+class ItineraryStore extends Marty.Store {
+  constructor(options) {
+    super(options);
+    this.state = {
+      items: undefined
+    };
+    this.handlers = {
+      receive: constants.ITINERARY_RECEIVE,
+    };
   }
 
-});
+  getAll() {
+    return this.fetch({
+      id: 'items',
+      locally() {
+        return this.state.items;
+      },
+      remotely() {
+        return ItineraryQueries.for(this).getAll();
+      }
+    });
+  }
 
+  receive( items ) {
+    this.state.items = items;
+    this.hasChanged();
+  }
+
+}
+
+export default Marty.register(ItineraryStore);

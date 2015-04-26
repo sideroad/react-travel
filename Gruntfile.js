@@ -35,7 +35,7 @@ module.exports = function(grunt) {
         }
       },
       browserify: {
-        files: ['app/**/*.js'],
+        files: ['app/**/*.js', '!app/server.js'],
         tasks: ['browserify'],
         options: {
           livereload: true

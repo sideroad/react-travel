@@ -5,7 +5,10 @@ import Nav       from './Nav';
 import Map       from './Map';
 import Place     from './Place';
 import Itinerary from './Itinerary';
+import Footer    from './Footer';
 import Router    from 'react-router';
+import NearbyUtils  from '../utils/NearbyUtils';
+
 import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
 
 export default React.createClass({
@@ -15,13 +18,19 @@ export default React.createClass({
     router: React.PropTypes.func.isRequired
   },
   render() {
-    var place = decodeURIComponent( this.context.router.getCurrentParams().place );
+    let params = this.context.router.getCurrentParams();
+    let nearby = NearbyUtils.get(params);
+
     return (
       <div>
         <Nav />
         <Place isSearch="true" />
-        <Map place={place} />
+        <Map 
+          place={params.place} 
+          nearby={nearby} 
+        />
         <Itinerary />
+        <Footer />
       </div>
     );
   }

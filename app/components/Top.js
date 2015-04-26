@@ -1,10 +1,11 @@
 'use strict';
 
-import React     from 'react';
-import Nav       from './Nav';
-import Place     from './Place';
-import Impress     from './Impress';
-import Router from 'react-router';
+import React   from 'react';
+import Nav     from './Nav';
+import Place   from './Place';
+import Impress from './Impress';
+import Footer  from './Footer';
+import Router  from 'react-router';
 import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
 
 export default React.createClass({
@@ -20,6 +21,7 @@ export default React.createClass({
         <Nav />
         <Place />
         <Impress />
+        <Footer />
       </div>
     );
   }

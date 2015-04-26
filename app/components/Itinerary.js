@@ -1,39 +1,20 @@
 'use strict';
 
-import React          from 'react/addons';
-import Reflux         from 'reflux';
-import ReactAsync     from 'react-async';
-import Router         from 'react-router';
-import Actions        from '../actions';
-import ItineraryStore from '../stores/ItineraryStore';
+import React           from 'react/addons';
+import Marty           from 'Marty';
+import Router          from 'react-router';
+import ItineraryStore  from '../stores/ItineraryStore';
+import ItineraryAction from '../actions/ItineraryAction';
 import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
 
-export default React.createClass({
-  displayName: 'Itinerary',
-  mixins: [ReactAsync.Mixin, Reflux.ListenerMixin],
-  contextTypes: {
-    router: React.PropTypes.func.isRequired
-  },
-
-  getInitialStateAsync(cb) {
-    Actions.getItinerary();
-    ItineraryStore.listen(function(data) {
-      console.log(data);
-      return cb(null, data);
-    });
-  },
-
-  componentDidMount() {
-    this.listenTo(ItineraryStore, this.refreshItinerary);
-  },
-
-  refreshItinerary(data){
-    this.setState(data);
-  },
+class Itinerary extends React.Component {
+  remove(item) {
+    ItineraryAction.remove(item);
+  }
 
   render() {
-    console.log(this.state.items);
-    let items = this.state.items || [],
+    console.log(this.props.items);
+    let items = this.props.items || [],
         $items = [],
         index = 0;
 
@@ -56,7 +37,7 @@ export default React.createClass({
 
       let title = item.website ? (<a href={item.website} target="_blank" >{item.name}</a>) : (<span>{item.name}</span>);
 
-      let key = item.id + '-' + item.order;
+      let key = item.id;
 
       $items.push(
         <div className="rt-item col-sm-6 col-md-3" key={key} > 
@@ -84,7 +65,7 @@ export default React.createClass({
                 </div>
                 <div className="pull-right">
                   <a href="#" className="btn btn-primary" role="button"><span className="glyphicon glyphicon-map-marker"></span></a>
-                  <a href="#" className="btn btn-primary" role="button"><span className="glyphicon glyphicon-trash"></span></a>
+                  <a href="#" onClick={this.remove.bind(this,item)} className="btn btn-primary" role="button"><span className="glyphicon glyphicon-trash"></span></a>
                 </div>
               </p>
             </div>
@@ -103,6 +84,15 @@ export default React.createClass({
         </div>
       </div>      
     );
+  }
+};
+
+export default Marty.createContainer(Itinerary, {
+  listenTo: ItineraryStore,
+  fetch: {
+    items() {
+      return ItineraryStore.for(this).getAll();
+    }
   }
 });
 
