@@ -1,7 +1,7 @@
 'use strict';
 
 import React           from 'react/addons';
-import Marty           from 'Marty';
+import Marty           from 'marty';
 import Router          from 'react-router';
 import ItineraryStore  from '../stores/ItineraryStore';
 import ItineraryAction from '../actions/ItineraryAction';
