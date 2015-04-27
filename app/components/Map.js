@@ -3,7 +3,7 @@
 'use strict';
 
 import React        from 'react/addons';
-import Marty        from 'Marty';
+import Marty        from 'marty';
 import PlaceStore   from '../stores/PlaceStore';
 import PlaceQueries from '../queries/PlaceQueries';
 import NearbyUtils  from '../utils/NearbyUtils';
