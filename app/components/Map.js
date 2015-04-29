@@ -67,6 +67,7 @@ class Map extends React.Component {
       center: new google.maps.LatLng(this.state.lat, this.state.lng),
       zoom: this.state.zoom,
       mapTypeControl: false,
+      zoomControl: false,
       scaleControl: true,
       streetViewControl: true,
       streetViewControlOptions: {
