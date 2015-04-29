@@ -6,5 +6,6 @@ pkill -f 'SimpleHTTPServer'
 pkill -f 'grunt'
 
 babel-node app/server &
-grunt &
-/usr/bin/python -m SimpleHTTPServer &
+grunt browserify &
+grunt less &
+/usr/bin/python -m SimpleHTTPServer

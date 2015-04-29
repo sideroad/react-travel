@@ -19,18 +19,20 @@ export default React.createClass({
   },
   componentDidMount() {
     var input = document.getElementById('pac-input'),
-        searchBox = new google.maps.places.SearchBox(input);
-  },
-  submit(e){
-    e.preventDefault();
-    var input = document.getElementById('pac-input');
+        autocomp = new google.maps.places.Autocomplete(input);
 
-    if(input.value){
+    google.maps.event.addListener(autocomp, 'place_changed', () => {
+      var place = autocomp.getPlace();
+      console.log(place);
       this.setState({
         className: 'rt-place container in-map'
       });
-      this.context.router.transitionTo('/spot/'+encodeURIComponent(input.value));      
-    }
+      this.context.router.transitionTo('/spot/'+encodeURIComponent(place.name));
+    });
+
+  },
+  submit(e){
+    e.preventDefault();
   },
   render() {
     let className = 'rt-place container ' + ( this.props.isSearch ? 'in-map' : '' );

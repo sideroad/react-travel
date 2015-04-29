@@ -714,19 +714,22 @@ module.exports = React.createClass({
     };
   },
   componentDidMount: function componentDidMount() {
+    var _this = this;
+
     var input = document.getElementById("pac-input"),
-        searchBox = new google.maps.places.SearchBox(input);
+        autocomp = new google.maps.places.Autocomplete(input);
+
+    google.maps.event.addListener(autocomp, "place_changed", function () {
+      var place = autocomp.getPlace();
+      console.log(place);
+      _this.setState({
+        className: "rt-place container in-map"
+      });
+      _this.context.router.transitionTo("/spot/" + encodeURIComponent(place.name));
+    });
   },
   submit: function submit(e) {
     e.preventDefault();
-    var input = document.getElementById("pac-input");
-
-    if (input.value) {
-      this.setState({
-        className: "rt-place container in-map"
-      });
-      this.context.router.transitionTo("/spot/" + encodeURIComponent(input.value));
-    }
   },
   render: function render() {
     var className = "rt-place container " + (this.props.isSearch ? "in-map" : "");
