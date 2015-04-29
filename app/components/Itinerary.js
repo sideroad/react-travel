@@ -3,6 +3,7 @@
 import React           from 'react/addons';
 import Marty           from 'marty';
 import Router          from 'react-router';
+import DateTimeField   from 'react-bootstrap-datetimepicker';
 import ItineraryStore  from '../stores/ItineraryStore';
 import ItineraryAction from '../actions/ItineraryAction';
 import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
@@ -37,10 +38,10 @@ class Itinerary extends React.Component {
 
       let title = item.website ? (<a href={item.website} target="_blank" >{item.name}</a>) : (<span>{item.name}</span>);
 
-      let key = item.id;
+      let dateId = item.id+'-date';
 
       $items.push(
-        <div className="rt-item col-sm-6 col-md-3" key={key} > 
+        <div className="rt-item col-sm-6 col-md-3" key={item.id} > 
           <div className="thumbnail">
             {img}
             <div className="caption clearfix">
@@ -53,7 +54,7 @@ class Itinerary extends React.Component {
               </p>
               <p className="form-inline">
                 <label htmlFor="start-from1">Stay from</label> 
-                <input type="datetime-local" className="from-control" id="start-from1" />
+                <DateTimeField />
               </p>
               <p className="form-inline ">
                 <div className="pull-left">

@@ -54,7 +54,7 @@ export default React.createClass({
     let title = spot.website ? (<a href={spot.website} target="_blank" >{spot.name}</a>) : (<span>{spot.name}</span>);
 
     return (
-      <div className="col-sm-6 col-md-4 pull-right rt-map-info" style={style} >
+      <div className="col-sm-4 col-md-4 pull-right rt-map-info" style={style} >
         <div className="thumbnail">
           <div className="rt-close-btn">
             <a href="#" onClick={this.close} ><span className="glyphicon glyphicon-remove"></span></a>

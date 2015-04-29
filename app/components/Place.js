@@ -25,7 +25,7 @@ export default React.createClass({
       var place = autocomp.getPlace();
       console.log(place);
       this.setState({
-        className: 'rt-place container in-map'
+        className: 'rt-place in-map'
       });
       this.context.router.transitionTo('/spot/'+encodeURIComponent(place.name));
     });
@@ -35,7 +35,7 @@ export default React.createClass({
     e.preventDefault();
   },
   render() {
-    let className = 'rt-place container ' + ( this.props.isSearch ? 'in-map' : '' );
+    let className = 'rt-place ' + ( this.props.isSearch ? 'in-map' : '' );
     return (
         <div className={className}>
           <form role="form" onSubmit={this.submit} className="form-group">

@@ -1,17 +1,15 @@
+@import (inline) "bootstrap-datetimepicker.min.css";
+
 html, body {
   height: 100%;
   margin: 0px;
   padding: 0px
 }
 
-@media (min-width: 768px) { 
+@media (max-width: 768px) { 
   .rt-map-info {
     width: 100%;
   }
-}
-
-@media (min-width: 992px) { 
-    width: 30%;
 }
 
 #app{
@@ -65,10 +63,11 @@ html, body {
     position: absolute;
     top: 45%;
     z-index: 10000;
-    width: 100%;
+    width: 80%;
     padding-left: 10%;
     padding-right: 10%;
-
+    margin-left: 0;
+    margin-right: 0;      
     -webkit-transition-property: top;
     -webkit-transition-duration: 1s;
     -webkit-transition-timing-function: ease;
@@ -77,8 +76,11 @@ html, body {
   }
   .in-map {
     top: 80px;
-    padding-left: 80px;
-    margin-top: 10px;
+    margin-top: 5px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 10%;
+    margin-right: 10%;
   }
 
   .rt-place-search{

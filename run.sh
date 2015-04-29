@@ -8,4 +8,3 @@ pkill -f 'grunt'
 babel-node app/server &
 grunt browserify &
 grunt less &
-/usr/bin/python -m SimpleHTTPServer
