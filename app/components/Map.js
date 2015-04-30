@@ -21,9 +21,8 @@ class Map extends React.Component {
     this.state = {
       active: (props.spots||[])[0],
       spots: props.spots||[],
-      zoom: props.nearby.zoom,
-      lat: props.nearby.lat,
-      lng: props.nearby.lng
+      center: undefined,
+      zoom: 15
     };
   }
 
@@ -64,7 +63,7 @@ class Map extends React.Component {
     });
 
     gm = new google.maps.Map(document.getElementById('map-canvas'),{
-      center: new google.maps.LatLng(this.state.lat, this.state.lng),
+      center: this.state.center || new google.maps.LatLng(35.681382, 139.766084),
       zoom: this.state.zoom,
       mapTypeControl: false,
       zoomControl: false,
@@ -75,6 +74,9 @@ class Map extends React.Component {
       },
       styles: [{"featureType":"water","stylers":[{"saturation":43},{"lightness":-11},{"hue":"#0088ff"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"hue":"#ff0000"},{"saturation":-100},{"lightness":99}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#808080"},{"lightness":54}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#ece2d9"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#ccdca1"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#767676"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]},{"featureType":"poi","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#b8cb93"}]},{"featureType":"poi.park","stylers":[{"visibility":"on"}]},{"featureType":"poi.sports_complex","stylers":[{"visibility":"on"}]},{"featureType":"poi.medical","stylers":[{"visibility":"on"}]},{"featureType":"poi.business","stylers":[{"visibility":"simplified"}]}]
     });
+
+    google.maps.event.addListener(gm, 'zoom_changed', () => {this.setState({zoom: gm.getZoom()});});
+    google.maps.event.addListener(gm, 'center_changed', () => {this.setState({center: gm.getCenter()});});
 
     this.setMarkers();
     window.gm = gm;
@@ -127,8 +129,6 @@ class Map extends React.Component {
         console.error(err);
       });
     });
-    // let nearbyId = NearbyUtils.stringify(gm, types);
-    // this.context.router.transitionTo('/nearby/'+nearbyId);      
   }
 
   _onMapChange(){
@@ -186,11 +186,7 @@ export default Marty.createContainer(Map, {
   listenTo: PlaceStore,
   fetch: {
     spots() {
-      if(this.props.place) {
-        return PlaceStore.for(this).getSpot(this.props.place);
-      } else {
-        return PlaceStore.for(this).getNearby(this.props.nearby);
-      }
+      return PlaceStore.for(this).getSpot(this.props.place);
     }
   }
 });

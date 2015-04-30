@@ -487,9 +487,8 @@ var Map = (function (_React$Component) {
     this.state = {
       active: (props.spots || [])[0],
       spots: props.spots || [],
-      zoom: props.nearby.zoom,
-      lat: props.nearby.lat,
-      lng: props.nearby.lng
+      center: undefined,
+      zoom: 15
     };
   }
 
@@ -531,13 +530,14 @@ var Map = (function (_React$Component) {
     },
     componentDidMount: {
       value: function componentDidMount() {
+        var _this2 = this;
 
         this.setState({
           spots: this.props.spots
         });
 
         gm = new google.maps.Map(document.getElementById("map-canvas"), {
-          center: new google.maps.LatLng(this.state.lat, this.state.lng),
+          center: this.state.center || new google.maps.LatLng(35.681382, 139.766084),
           zoom: this.state.zoom,
           mapTypeControl: false,
           zoomControl: false,
@@ -547,6 +547,13 @@ var Map = (function (_React$Component) {
             position: google.maps.ControlPosition.LEFT_TOP
           },
           styles: [{ featureType: "water", stylers: [{ saturation: 43 }, { lightness: -11 }, { hue: "#0088ff" }] }, { featureType: "road", elementType: "geometry.fill", stylers: [{ hue: "#ff0000" }, { saturation: -100 }, { lightness: 99 }] }, { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#808080" }, { lightness: 54 }] }, { featureType: "landscape.man_made", elementType: "geometry.fill", stylers: [{ color: "#ece2d9" }] }, { featureType: "poi.park", elementType: "geometry.fill", stylers: [{ color: "#ccdca1" }] }, { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#767676" }] }, { featureType: "road", elementType: "labels.text.stroke", stylers: [{ color: "#ffffff" }] }, { featureType: "poi", stylers: [{ visibility: "off" }] }, { featureType: "landscape.natural", elementType: "geometry.fill", stylers: [{ visibility: "on" }, { color: "#b8cb93" }] }, { featureType: "poi.park", stylers: [{ visibility: "on" }] }, { featureType: "poi.sports_complex", stylers: [{ visibility: "on" }] }, { featureType: "poi.medical", stylers: [{ visibility: "on" }] }, { featureType: "poi.business", stylers: [{ visibility: "simplified" }] }]
+        });
+
+        google.maps.event.addListener(gm, "zoom_changed", function () {
+          _this2.setState({ zoom: gm.getZoom() });
+        });
+        google.maps.event.addListener(gm, "center_changed", function () {
+          _this2.setState({ center: gm.getCenter() });
         });
 
         this.setMarkers();
@@ -604,8 +611,6 @@ var Map = (function (_React$Component) {
             console.error(err);
           });
         });
-        // let nearbyId = NearbyUtils.stringify(gm, types);
-        // this.context.router.transitionTo('/nearby/'+nearbyId);    
       }
     },
     _onMapChange: {
@@ -687,11 +692,7 @@ module.exports = Marty.createContainer(Map, {
   listenTo: PlaceStore,
   fetch: {
     spots: function spots() {
-      if (this.props.place) {
-        return PlaceStore["for"](this).getSpot(this.props.place);
-      } else {
-        return PlaceStore["for"](this).getNearby(this.props.nearby);
-      }
+      return PlaceStore["for"](this).getSpot(this.props.place);
     }
   }
 });
@@ -771,7 +772,7 @@ module.exports = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      place: PlaceStore.getPlace()
+      place: this.props.place
     };
   },
   componentDidMount: function componentDidMount() {
@@ -784,7 +785,8 @@ module.exports = React.createClass({
       var place = autocomp.getPlace();
       console.log(place);
       _this.setState({
-        className: "rt-place in-map"
+        className: "rt-place in-map",
+        place: place.name
       });
       _this.context.router.transitionTo("/spot/" + encodeURIComponent(place.name));
     });
@@ -852,16 +854,15 @@ module.exports = React.createClass({
   },
   render: function render() {
     var params = this.context.router.getCurrentParams();
-    var nearby = NearbyUtils.get(params);
+    var place = decodeURIComponent(params.place);
 
     return React.createElement(
       "div",
       null,
       React.createElement(Nav, null),
-      React.createElement(Place, { isSearch: "true" }),
+      React.createElement(Place, { isSearch: "true", place: place }),
       React.createElement(Map, {
-        place: params.place,
-        nearby: nearby
+        place: place
       }),
       React.createElement(Itinerary, null),
       React.createElement(Footer, null)

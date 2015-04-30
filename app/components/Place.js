@@ -14,7 +14,7 @@ export default React.createClass({
 
   getInitialState(){
     return {
-      place: PlaceStore.getPlace()
+      place: this.props.place
     };
   },
   componentDidMount() {
@@ -25,7 +25,8 @@ export default React.createClass({
       var place = autocomp.getPlace();
       console.log(place);
       this.setState({
-        className: 'rt-place in-map'
+        className: 'rt-place in-map',
+        place: place.name
       });
       this.context.router.transitionTo('/spot/'+encodeURIComponent(place.name));
     });

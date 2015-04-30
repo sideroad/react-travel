@@ -19,15 +19,14 @@ export default React.createClass({
   },
   render() {
     let params = this.context.router.getCurrentParams();
-    let nearby = NearbyUtils.get(params);
+    let place = decodeURIComponent(params.place);
 
     return (
       <div>
         <Nav />
-        <Place isSearch="true" />
+        <Place isSearch="true" place={place}/>
         <Map 
-          place={params.place} 
-          nearby={nearby} 
+          place={place} 
         />
         <Itinerary />
         <Footer />
