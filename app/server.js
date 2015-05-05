@@ -30,7 +30,7 @@ passport.use(new OpenidConnectStrategy({
     userInfoURL: "https://www.googleapis.com/oauth2/v1/userinfo",
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_SECRET,
-    callbackURL: "http://localhost:5000/auth/google/return",
+    callbackURL: "https://react-travel.herokuapp.com/auth/google/return",
     scope: ["openid", "email", "profile" ]
 }, (accessToken, refreshToken, profile, req, res, done) => {
     console.log('accessToken: ', accessToken);
