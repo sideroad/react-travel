@@ -10,7 +10,45 @@ html, body {
   .rt-map-info {
     width: 100%;
   }
+
+  #app{
+    .rt-map {
+      #impress {
+        background-image: url('/beach-768.png');
+      }
+    }
+  }  
 }
+
+@media (min-width: 768px) and (max-width: 992px) { 
+  #app{
+    .rt-map {
+      #impress {
+        background-image: url('/beach-992.png');
+      }  
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) { 
+  #app{
+    .rt-map {
+      #impress {
+        background-image: url('/beach-1200.png');
+      }  
+    }
+  }
+}
+@media (min-width: 1200px){ 
+  #app{
+    .rt-map {
+      #impress {
+        background-image: url('/beach-1440.png');
+      }  
+    }
+  }
+}
+
 
 #app{
   .rt-circle-btn {
@@ -42,7 +80,6 @@ html, body {
     }
 
     #impress {
-      background-image: url('/beach.jpg');
       background-size: cover;
       background-repeat: no-repeat;
     }
@@ -58,6 +95,11 @@ html, body {
     img {
       height: 28%;
     }
+  }
+  img.user {
+    height: 2em;
+    border-radius: 50%;
+    margin-right: 5px;
   }
   .rt-place{
     position: absolute;

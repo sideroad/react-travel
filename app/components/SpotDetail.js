@@ -18,6 +18,12 @@ export default React.createClass({
     router: React.PropTypes.func.isRequired
   },
 
+  componentWillReceiveProps(props) {
+    this.setState({
+      showDetail: props.showDetail
+    });
+  },
+
   add(e) {
     e.preventDefault();
     ItineraryAction.add(this.props.spot);

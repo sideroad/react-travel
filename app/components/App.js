@@ -2,11 +2,21 @@
 
 import React          from 'react';
 import {RouteHandler} from 'react-router';
+import UserStore      from '../stores/UserStore';
 
 export default React.createClass({
   displayName: 'App',
+  contextTypes: {
+    marty: React.PropTypes.object.isRequired
+  },
+
+  componentWillMount() {
+    UserStore.receive(this.props.user);
+  },
+
   render() {
     let title = `Enjoy your trip`;
+
     return (
       <html lang="ja">
       <head>

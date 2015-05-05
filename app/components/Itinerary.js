@@ -5,6 +5,7 @@ import Marty           from 'marty';
 import Router          from 'react-router';
 import DateTimeField   from 'react-bootstrap-datetimepicker';
 import ItineraryStore  from '../stores/ItineraryStore';
+import UserStore  from '../stores/UserStore';
 import ItineraryAction from '../actions/ItineraryAction';
 import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
 
@@ -93,7 +94,10 @@ export default Marty.createContainer(Itinerary, {
   fetch: {
     items() {
       return ItineraryStore.for(this).getAll();
-    }
+    },
+    // user() {
+    //   return UserStore.for(this).take();
+    // }
   }
 });
 

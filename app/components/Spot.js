@@ -1,7 +1,7 @@
 'use strict';
 
 import React     from 'react';
-import Nav       from './Nav';
+import Navigation       from './Navigation';
 import Map       from './Map';
 import Place     from './Place';
 import Itinerary from './Itinerary';
@@ -23,7 +23,7 @@ export default React.createClass({
 
     return (
       <div>
-        <Nav />
+        <Navigation />
         <Place isSearch="true" place={place}/>
         <Map 
           place={place} 

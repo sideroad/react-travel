@@ -21,8 +21,7 @@ module.exports = function(grunt) {
     },
 
     copy:  {
-      expand: true,
-      src: ['images/**/*.*'],
+      src: ['images/**/*'],
       dest: 'dist/'
     },
 

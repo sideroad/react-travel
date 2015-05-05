@@ -8,3 +8,4 @@ pkill -f 'grunt'
 babel-node app/server &
 grunt browserify &
 grunt less &
+grunt copy &
