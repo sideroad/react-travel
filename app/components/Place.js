@@ -41,7 +41,7 @@ export default React.createClass({
         <div className={className}>
           <form role="form" onSubmit={this.submit} className="form-group">
             <div className="input-group input-group-lg">
-              <input id="pac-input" className="form-control" type="text" placeholder="Where you go?" valueLink={this.linkState('place')}  />
+              <input id="pac-input" className="form-control" type="text" placeholder="Where are you going?" valueLink={this.linkState('place')}  />
               <div className="input-group-addon btn-info rt-place-search"><span className="glyphicon glyphicon-search"></span></div>
             </div>
           </form>

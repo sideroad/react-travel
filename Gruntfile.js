@@ -1,5 +1,6 @@
 /*global module:false*/
 module.exports = function(grunt) {
+  require('load-grunt-tasks')(grunt);
 
   // Project configuration.
   grunt.initConfig({
@@ -12,6 +13,12 @@ module.exports = function(grunt) {
       }
     },
 
+    nodemon: {
+      args: ['--exec', 'babel-node', '--stage', '0'],
+      script: 'app/server.js',
+      watch: 'app'
+    },
+
     browserify: {
       dist: {
         files: {
@@ -21,8 +28,12 @@ module.exports = function(grunt) {
     },
 
     copy:  {
-      src: ['images/**/*'],
-      dest: 'dist/'
+      main: {
+        expand: true,
+        src: ['images/*'],
+        dest: 'dist/',
+        filter: 'isFile'
+      }
     },
 
     watch: {
@@ -46,17 +57,21 @@ module.exports = function(grunt) {
         options: {
           livereload: true
         }
+      },
+    },
+
+    concurrent: {
+      dev: {
+        tasks: ['browserify', 'nodemon', 'watch'],
+        options: {
+          logConcurrentOutput: true
+        }
       }
     }
+
   });
 
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-
   // Default task.
-  grunt.registerTask('default', ['watch']);
+  grunt.registerTask('default', ['concurrent']);
 
 };

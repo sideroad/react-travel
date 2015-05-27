@@ -87,7 +87,7 @@ window.React = React;
 window.Marty = Marty;
 
 Router.run(routes, Router.HistoryLocation, function (Handler) {
-  React.render(React.createElement(Handler, { path: window.location.pathname }), document);
+  React.render(React.createElement(Handler, { path: window.location.pathname }), document.getElementById("app"));
 });
 
 },{"./routes":18,"babel/polyfill":29,"marty":105,"react":566,"react-router":380}],3:[function(require,module,exports){
@@ -103,48 +103,13 @@ var UserStore = _interopRequire(require("../stores/UserStore"));
 
 module.exports = React.createClass({
   displayName: "App",
-  contextTypes: {
-    marty: React.PropTypes.object.isRequired
-  },
 
   componentWillMount: function componentWillMount() {
     UserStore.receive(this.props.user);
   },
 
   render: function render() {
-    var title = "Enjoy your trip";
-
-    return React.createElement(
-      "html",
-      { lang: "ja" },
-      React.createElement(
-        "head",
-        null,
-        React.createElement(
-          "title",
-          null,
-          title
-        ),
-        React.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
-        React.createElement("meta", { httpEquiv: "Cache-Control", content: "no-cache" }),
-        React.createElement("meta", { httpEquiv: "Pragma", content: "no-cache" }),
-        React.createElement("meta", { charSet: "utf8" }),
-        React.createElement("link", { rel: "stylesheet", href: "//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" }),
-        React.createElement("link", { rel: "stylesheet", href: "//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" }),
-        React.createElement("link", { rel: "stylesheet", href: "/bundle.css" }),
-        React.createElement("script", { src: "https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places,geometry" })
-      ),
-      React.createElement(
-        "body",
-        null,
-        React.createElement(
-          "div",
-          { id: "app" },
-          React.createElement(RouteHandler, null)
-        )
-      ),
-      React.createElement("script", { src: "/bundle.js?v=20150130" })
-    );
+    return React.createElement(RouteHandler, null);
   }
 });
 
@@ -817,10 +782,6 @@ var Navigation = (function (_React$Component) {
 
 ;
 
-Navigation.contextTypes = {
-  marty: React.PropTypes.object.isRequired
-};
-
 module.exports = Marty.createContainer(Navigation, {
   listenTo: UserStore,
   fetch: {
@@ -891,7 +852,7 @@ module.exports = React.createClass({
         React.createElement(
           "div",
           { className: "input-group input-group-lg" },
-          React.createElement("input", { id: "pac-input", className: "form-control", type: "text", placeholder: "Where you go?", valueLink: this.linkState("place") }),
+          React.createElement("input", { id: "pac-input", className: "form-control", type: "text", placeholder: "Where are you going?", valueLink: this.linkState("place") }),
           React.createElement(
             "div",
             { className: "input-group-addon btn-info rt-place-search" },
@@ -1127,21 +1088,10 @@ var Impress = _interopRequire(require("./Impress"));
 
 var Footer = _interopRequire(require("./Footer"));
 
-var _reactRouter = require("react-router");
-
-var Router = _interopRequire(_reactRouter);
-
-var Route = _reactRouter.Route;
-var RouteHandler = _reactRouter.RouteHandler;
-var DefaultRoute = _reactRouter.DefaultRoute;
-var State = _reactRouter.State;
-var Link = _reactRouter.Link;
-var Redirect = _reactRouter.Redirect;
 module.exports = React.createClass({
   displayName: "Top",
 
   contextTypes: {
-    router: React.PropTypes.func.isRequired,
     marty: React.PropTypes.object.isRequired
   },
 
@@ -1157,7 +1107,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"./Footer":4,"./Impress":5,"./Navigation":8,"./Place":9,"react":566,"react-router":380}],13:[function(require,module,exports){
+},{"./Footer":4,"./Impress":5,"./Navigation":8,"./Place":9,"react":566}],13:[function(require,module,exports){
 /* global navigator */
 "use strict";
 
@@ -1448,7 +1398,7 @@ var PlaceAPI = (function (_Marty$HttpStateSource) {
     getSpot: {
       value: function getSpot(place) {
         return this.get({
-          url: config.API_HOST + "/" + config.LANG + "/spots/" + decodeURIComponent(place)
+          url: config.API_HOST + "/" + config.LANG + "/spots/" + encodeURIComponent(place)
         });
       }
     },

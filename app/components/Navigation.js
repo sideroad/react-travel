@@ -34,10 +34,6 @@ class Navigation extends React.Component {
   }
 };
 
-Navigation.contextTypes = {
-  marty: React.PropTypes.object.isRequired
-};
-
 export default Marty.createContainer(Navigation, {
   listenTo: UserStore,
   fetch: {

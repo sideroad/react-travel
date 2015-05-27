@@ -44,8 +44,18 @@ app.use(express.static(__dirname+'/../dist'));
 app.get('/favicon.ico', (req, res) => { res.send(''); });
 
 app.use(cookieParser());
-app.use(bodyParser());
-app.use(session({ secret: process.env.REACT_SECRET, key: 'sid'}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
+
+app.use(session({
+  secret: process.env.REACT_SECRET,
+  key: 'sid',
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -90,7 +100,25 @@ app.use((req, res, next) => {
       context: Marty.createContext()
     }).then( (render) => {
       console.log(render.diagnostics);
-      res.send(render.html).end();
+      console.log(render.html);
+      let html = '<html lang="ja">' +
+                 '<head>' +
+                 '  <title>Enjoy trip</title>' +
+                 '  <meta name="viewport" content="width=device-width, initial-scale=1" />' +
+                 '  <meta httpEquiv="Cache-Control" content="no-cache" />' +
+                 '  <meta httpEquiv="Pragma" content="no-cache" />' +
+                 '  <meta charSet="utf8" />' +
+                 '  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />' +
+                 '  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" />' +
+                 '  <link rel="stylesheet" href="/bundle.css" />' +
+                 '  <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places,geometry" ></script>' +
+                 '</head>' +
+                 '<body>' +
+                 '  <div id="app">'+render.html+'</div>'+
+                 '</body>' +
+                 '<script src="/bundle.js?v=20150130" ></script>' +
+                 '</html>';
+      res.send(html).end();
     });
   });
 });
@@ -108,4 +136,3 @@ app.use((err, req, res, next) => {
 let port = process.env.PORT || 5000;
 console.log("listening..." + port);
 app.listen(port);
-

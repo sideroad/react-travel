@@ -10,5 +10,5 @@ window.React = React;
 window.Marty = Marty;
 
 Router.run(routes, Router.HistoryLocation, (Handler) => {
-  React.render(<Handler path={window.location.pathname} />, document);
+  React.render(<Handler path={window.location.pathname} />, document.getElementById('app'));
 });

@@ -7,7 +7,7 @@ import constants  from '../constants';
 class PlaceAPI extends Marty.HttpStateSource {
   getSpot(place) {
     return this.get({
-      url: config.API_HOST + '/'+config.LANG+'/spots/' + decodeURIComponent( place )
+      url: config.API_HOST + '/'+config.LANG+'/spots/' + encodeURIComponent( place )
     });
   }
   getNearby(options) {

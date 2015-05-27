@@ -29,11 +29,15 @@
     "browserify": "^9.0.3",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.7.0",
+    "grunt-concurrent": "^1.0.0",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-less": "^1.0.1",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-nodemon": "^0.4.0",
+    "grunt-spawn": "^1.1.72",
     "grunt-watchify": "^0.1.0",
     "jest-cli": "^0.4.0",
+    "load-grunt-tasks": "^3.1.0",
     "superagent-mock": "^1.0.0",
     "watchify": "^2.2.1"
   },
@@ -73,5 +77,12 @@
   },
   "engines": {
     "node": "0.12.0"
-  }
+  },
+  "apps" : [{
+    "script"      : "app/server.js",
+    "name"        : "react-travel",
+    "next_gen_js" : true,
+    "autorestart" : false,
+    "watch"       : false
+  }],
 }
