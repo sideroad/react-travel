@@ -90,14 +90,14 @@ class Itinerary extends React.Component {
 };
 
 export default Marty.createContainer(Itinerary, {
-  listenTo: ItineraryStore,
+  listenTo: [ ItineraryStore, UserStore ],
   fetch: {
     items() {
       return ItineraryStore.for(this).getAll();
     },
-    // user() {
-    //   return UserStore.for(this).take();
-    // }
+    user() {
+      return UserStore.for(this).take();
+    }
   }
 });
 
