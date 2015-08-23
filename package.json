@@ -84,5 +84,5 @@
     "next_gen_js" : true,
     "autorestart" : false,
     "watch"       : false
-  }],
+  }]
 }
