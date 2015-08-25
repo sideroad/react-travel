@@ -1,40 +1,39 @@
 'use strict';
 
 import ItineraryAction from '../actions/ItineraryAction';
+import Marty           from 'marty';
+import UserStore       from '../stores/UserStore';
 import React           from 'react';
 import Router          from 'react-router';
 import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
 
-export default React.createClass({
-  displayName: 'SpotDetail',
 
-  getInitialState(){
-    return {
-      showDetail: this.props.showDetail
+
+class SpotDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showDetail: props.showDetail
     };
-  },
-
-  contextTypes: {
-    router: React.PropTypes.func.isRequired
-  },
+  }
 
   componentWillReceiveProps(props) {
     this.setState({
       showDetail: props.showDetail
     });
-  },
+  }
 
   add(e) {
     e.preventDefault();
-    ItineraryAction.add(this.props.spot);
-  },
+    ItineraryAction.add(this.props.spot,this.props.user.id);
+  }
 
   close(e){
     e.preventDefault();
     this.setState({
       showDetail: false
     });
-  },
+  }
 
   render() {
     let spot = this.props.spot;
@@ -84,6 +83,19 @@ export default React.createClass({
         </div>
       </div>
     );
+  }
+};
+
+SpotDetail.contextTypes = {
+  router: React.PropTypes.func.isRequired
+};
+
+export default Marty.createContainer(SpotDetail, {
+  listenTo: UserStore,
+  fetch: {
+    user() {
+      return UserStore.take();
+    }
   }
 });
 
