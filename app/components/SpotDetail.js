@@ -77,7 +77,7 @@ class SpotDetail extends React.Component {
               {spot.rating}
             </p>
             <div className="pull-right">
-              <a href="#" onClick={this.add} className="btn btn-primary" role="button"><span className="glyphicon glyphicon-heart" /></a>
+              <a href="#" onClick={this.add.bind(this)} className="btn btn-primary" role="button"><span className="glyphicon glyphicon-heart" /></a>
             </div>
           </div>
         </div>

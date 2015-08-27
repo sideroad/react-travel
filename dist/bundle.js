@@ -1080,7 +1080,7 @@ var SpotDetail = (function (_React$Component) {
                 { className: "pull-right" },
                 React.createElement(
                   "a",
-                  { href: "#", onClick: this.add, className: "btn btn-primary", role: "button" },
+                  { href: "#", onClick: this.add.bind(this), className: "btn btn-primary", role: "button" },
                   React.createElement("span", { className: "glyphicon glyphicon-heart" })
                 )
               )
