@@ -429,17 +429,16 @@ var ItineraryActions = (function (_Marty$ActionCreators) {
 
   _createClass(ItineraryActions, {
     add: {
-      value: function add(spot, user) {
+      value: function add(user, spot) {
         var _this = this;
 
         var item = _.assign({}, spot, {
-          userId: user.id,
           placeId: spot.id,
           stayFrom: moment().add(1, "days").format("YYYY-MM-DDTHH:mm"),
           leftBy: config.LEFT_BY[0]
         });
 
-        return ItineraryAPI.add(item).then(function (res) {
+        return ItineraryAPI.add(user.id, item).then(function (res) {
           return _this.dispatch(constants.ITINERARY_RECEIVE, res.body);
         })["catch"](function (err) {
           return _this.dispatch(constants.ITINERARY_RECEIVE_FAILED, err);
@@ -447,10 +446,10 @@ var ItineraryActions = (function (_Marty$ActionCreators) {
       }
     },
     remove: {
-      value: function remove(item) {
+      value: function remove(user, item) {
         var _this = this;
 
-        return ItineraryAPI.remove(item.id).then(function (res) {
+        return ItineraryAPI.remove(user.id, item.id).then(function (res) {
           return _this.dispatch(constants.ITINERARY_RECEIVE, res.body);
         })["catch"](function (err) {
           return _this.dispatch(constants.ITINERARY_RECEIVE_FAILED, err);
@@ -594,7 +593,7 @@ var Itinerary = (function (_React$Component) {
   _createClass(Itinerary, {
     remove: {
       value: function remove(item) {
-        ItineraryAction.remove(item);
+        ItineraryAction.remove(this.props.user, item);
       }
     },
     render: {
@@ -1346,7 +1345,7 @@ var SpotDetail = (function (_React$Component) {
     add: {
       value: function add(e) {
         e.preventDefault();
-        ItineraryAction.add(this.props.spot, this.props.user);
+        ItineraryAction.add(this.props.user, this.props.spot);
       }
     },
     close: {
@@ -1760,17 +1759,17 @@ var ItineraryAPI = (function (_Marty$HttpStateSource) {
       }
     },
     add: {
-      value: function add(item) {
+      value: function add(userId, item) {
         return this.post({
-          url: config.API_HOST + "/" + config.LANG + "/itinerary/add/",
+          url: config.API_HOST + "/" + config.LANG + "/itinerary/" + userId + "/add/",
           body: item
         });
       }
     },
     remove: {
-      value: function remove(id) {
+      value: function remove(userId, id) {
         return this.post({
-          url: config.API_HOST + "/" + config.LANG + "/itinerary/remove/" + id + "/" });
+          url: config.API_HOST + "/" + config.LANG + "/itinerary/" + userId + "/remove/" + id });
       }
     }
   });
