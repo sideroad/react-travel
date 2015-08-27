@@ -1144,12 +1144,14 @@ module.exports = React.createClass({
 });
 
 },{"./Footer":4,"./Impress":5,"./Navigation":8,"./Place":9,"react":566}],13:[function(require,module,exports){
-/* global navigator */
+/* global navigator,window */
 "use strict";
 
+var env = typeof navigator !== "undefined" && typeof window !== "undefined" ? "client" : "server";
+
 module.exports = {
-  LANG: typeof navigator !== "undefined" ? navigator.language : "en",
-  WEB_HOST: typeof navigator !== "undefined" ? window.location.protocol + "//" + window.location.host : "https://react-travel.herokuapp.com",
+  LANG: env == "client" ? navigator.language || "en" : "en",
+  WEB_HOST: env == "client" ? window.location.protocol + "//" + window.location.host : "https://react-travel.herokuapp.com",
   API_HOST: "https://react-travel-api.herokuapp.com",
   LEFT_BY: ["driving", "walking", "bicycling", "transit"],
   GOOGLE_API_KEY: "AIzaSyCAMFUPXk_xra48EVWuAWEuqmfGowdrMGc"
