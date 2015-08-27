@@ -10,15 +10,15 @@ class ItineraryAPI extends Marty.HttpStateSource {
       url: config.API_HOST + '/'+config.LANG+'/itinerary/'+userId
     });
   }
-  add( item ) {
+  add( userId, item ) {
     return this.post({
-      url: config.API_HOST + '/'+config.LANG+'/itinerary/add/',
+      url: config.API_HOST + '/'+config.LANG+'/itinerary/'+userId+'/add/',
       body: item
     });
   }
-  remove( id ) {
+  remove( userId, id ) {
     return this.post({
-      url: config.API_HOST + '/'+config.LANG+'/itinerary/remove/'+id+'/',
+      url: config.API_HOST + '/'+config.LANG+'/itinerary/'+userId+'/remove/'+id,
     });
   }
 }

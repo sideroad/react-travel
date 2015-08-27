@@ -8,20 +8,19 @@ import moment           from 'moment';
 import _                from 'lodash';
 
 class ItineraryActions extends Marty.ActionCreators {
-  add(spot, user) {
+  add(user, spot) {
     let item = _.assign({}, spot, {
-      userId: user.id,
       placeId:  spot.id,
       stayFrom: moment().add(1, 'days').format('YYYY-MM-DDTHH:mm'),
       leftBy:   config.LEFT_BY[0]
     });
 
-    return ItineraryAPI.add(item)
+    return ItineraryAPI.add(user.id, item)
       .then(res => this.dispatch(constants.ITINERARY_RECEIVE, res.body))
       .catch(err => this.dispatch(constants.ITINERARY_RECEIVE_FAILED, err));  
   }
-  remove(item) {
-    return ItineraryAPI.remove(item.id)
+  remove(user, item) {
+    return ItineraryAPI.remove(user.id, item.id)
       .then(res => this.dispatch(constants.ITINERARY_RECEIVE, res.body))
       .catch(err => this.dispatch(constants.ITINERARY_RECEIVE_FAILED, err));  
   }

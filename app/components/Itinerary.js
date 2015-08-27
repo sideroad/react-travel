@@ -11,7 +11,7 @@ import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-
 
 class Itinerary extends React.Component {
   remove(item) {
-    ItineraryAction.remove(item);
+    ItineraryAction.remove(this.props.user, item);
   }
 
   render() {
