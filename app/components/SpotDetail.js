@@ -25,7 +25,7 @@ class SpotDetail extends React.Component {
 
   add(e) {
     e.preventDefault();
-    ItineraryAction.add(this.props.spot,this.props.user.id);
+    ItineraryAction.add(this.props.spot,this.props.user);
   }
 
   close(e){

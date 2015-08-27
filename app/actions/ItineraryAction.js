@@ -8,8 +8,9 @@ import moment           from 'moment';
 import _                from 'lodash';
 
 class ItineraryActions extends Marty.ActionCreators {
-  add(spot) {
+  add(spot, user) {
     let item = _.assign({}, spot, {
+      userId: user.id,
       placeId:  spot.id,
       stayFrom: moment().add(1, 'days').format('YYYY-MM-DDTHH:mm'),
       leftBy:   config.LEFT_BY[0]
