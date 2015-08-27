@@ -62,7 +62,7 @@ class SpotDetail extends React.Component {
       <div className="col-sm-4 col-md-4 pull-right rt-map-info" style={style} >
         <div className="thumbnail">
           <div className="rt-close-btn">
-            <a href="#" onClick={this.close} ><span className="glyphicon glyphicon-remove"></span></a>
+            <a href="#" onClick={this.close.bind(this)} ><span className="glyphicon glyphicon-remove"></span></a>
           </div>
           {img}
           <div className="caption clearfix">
