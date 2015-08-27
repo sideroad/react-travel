@@ -5,9 +5,9 @@ import config from '../config';
 
 
 class ItineraryAPI extends Marty.HttpStateSource {
-  getAll() {
+  getAll(userId) {
     return this.get({
-      url: config.API_HOST + '/'+config.LANG+'/itinerary/'
+      url: config.API_HOST + '/'+config.LANG+'/itinerary/'+userId
     });
   }
   add( item ) {
