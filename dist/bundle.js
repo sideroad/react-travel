@@ -1149,6 +1149,7 @@ module.exports = React.createClass({
 
 module.exports = {
   LANG: typeof navigator !== "undefined" ? navigator.language : "en",
+  WEB_HOST: typeof navigator !== "undefined" ? window.location.protocol + "//" + window.location.host : "https://react-travel.herokuapp.com",
   API_HOST: "https://react-travel-api.herokuapp.com",
   LEFT_BY: ["driving", "walking", "bicycling", "transit"],
   GOOGLE_API_KEY: "AIzaSyCAMFUPXk_xra48EVWuAWEuqmfGowdrMGc"
@@ -1206,6 +1207,8 @@ var ItineraryQueries = (function (_Marty$Queries) {
           })["catch"](function (err) {
             return _this.dispatch(constants.ITINERARY_RECEIVE_FAILED, err);
           });
+        })["catch"](function (err) {
+          return console.log(err);
         });
       }
     }
@@ -1486,7 +1489,7 @@ var UserAPI = (function (_Marty$HttpStateSource) {
     take: {
       value: function take() {
         return this.get({
-          url: "/account"
+          url: config.WEB_HOST + "/account"
         });
       }
     }

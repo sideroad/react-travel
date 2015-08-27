@@ -7,7 +7,7 @@ import config from '../config';
 class UserAPI extends Marty.HttpStateSource {
   take() {
     return this.get({
-      url: '/account'
+      url: config.WEB_HOST + '/account'
     });
   }
 }
