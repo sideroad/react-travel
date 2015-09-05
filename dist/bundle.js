@@ -286,6 +286,7 @@ var Itinerary = (function (_React$Component) {
             );
 
             var dateId = item.id + "-date";
+            var mapLink = "/spot/" + title;
 
             $items.push(React.createElement(
               "div",
@@ -353,7 +354,7 @@ var Itinerary = (function (_React$Component) {
                       { className: "pull-right" },
                       React.createElement(
                         "a",
-                        { href: "#", className: "btn btn-primary", role: "button" },
+                        { href: mapLink, className: "btn btn-primary", role: "button" },
                         React.createElement("span", { className: "glyphicon glyphicon-map-marker" })
                       ),
                       React.createElement(
@@ -1209,8 +1210,6 @@ var ItineraryQueries = (function (_Marty$Queries) {
           })["catch"](function (err) {
             return _this.dispatch(constants.ITINERARY_RECEIVE_FAILED, err);
           });
-        })["catch"](function (err) {
-          return console.log(err);
         });
       }
     }
