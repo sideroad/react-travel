@@ -286,7 +286,7 @@ var Itinerary = (function (_React$Component) {
             );
 
             var dateId = item.id + "-date";
-            var mapLink = "/spot/" + title;
+            var mapLink = "/spot/" + item.name;
 
             $items.push(React.createElement(
               "div",

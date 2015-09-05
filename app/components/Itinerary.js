@@ -40,7 +40,7 @@ class Itinerary extends React.Component {
       let title = item.website ? (<a href={item.website} target="_blank" >{item.name}</a>) : (<span>{item.name}</span>);
 
       let dateId = item.id+'-date';
-      let mapLink = "/spot/"+title;
+      let mapLink = "/spot/"+item.name;
 
       $items.push(
         <div className="rt-item col-sm-6 col-md-3" key={item.id} > 
