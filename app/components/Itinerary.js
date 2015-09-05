@@ -66,7 +66,7 @@ class Itinerary extends React.Component {
                   </select>
                 </div>
                 <div className="pull-right">
-                  <Link className="btn btn-primary" role="button" to="spot" params={{place: item.id}} >
+                  <Link className="btn btn-primary" role="button" to="spot" params={{place: item.name}} >
                     <span className="glyphicon glyphicon-map-marker"></span>
                   </Link>
                   <a href="#" onClick={this.remove.bind(this,item)} className="btn btn-primary" role="button"><span className="glyphicon glyphicon-trash"></span></a>
