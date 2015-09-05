@@ -353,7 +353,7 @@ var Itinerary = (function (_React$Component) {
                       { className: "pull-right" },
                       React.createElement(
                         Link,
-                        { className: "btn btn-primary", role: "button", to: "spot", params: { placeId: item.id } },
+                        { className: "btn btn-primary", role: "button", to: "spot", params: { place: item.id } },
                         React.createElement("span", { className: "glyphicon glyphicon-map-marker" })
                       ),
                       React.createElement(
