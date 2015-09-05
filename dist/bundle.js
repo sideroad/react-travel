@@ -286,7 +286,6 @@ var Itinerary = (function (_React$Component) {
             );
 
             var dateId = item.id + "-date";
-            var mapLink = "/spot/" + item.name;
 
             $items.push(React.createElement(
               "div",
@@ -353,8 +352,8 @@ var Itinerary = (function (_React$Component) {
                       "div",
                       { className: "pull-right" },
                       React.createElement(
-                        "a",
-                        { href: mapLink, className: "btn btn-primary", role: "button" },
+                        Link,
+                        { className: "btn btn-primary", role: "button", to: "spot", params: { placeId: item.id } },
                         React.createElement("span", { className: "glyphicon glyphicon-map-marker" })
                       ),
                       React.createElement(

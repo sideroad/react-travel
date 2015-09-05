@@ -40,7 +40,6 @@ class Itinerary extends React.Component {
       let title = item.website ? (<a href={item.website} target="_blank" >{item.name}</a>) : (<span>{item.name}</span>);
 
       let dateId = item.id+'-date';
-      let mapLink = "/spot/"+item.name;
 
       $items.push(
         <div className="rt-item col-sm-6 col-md-3" key={item.id} > 
@@ -67,7 +66,9 @@ class Itinerary extends React.Component {
                   </select>
                 </div>
                 <div className="pull-right">
-                  <a href={mapLink} className="btn btn-primary" role="button"><span className="glyphicon glyphicon-map-marker"></span></a>
+                  <Link className="btn btn-primary" role="button" to="spot" params={{placeId: item.id}} >
+                    <span className="glyphicon glyphicon-map-marker"></span>
+                  </Link>
                   <a href="#" onClick={this.remove.bind(this,item)} className="btn btn-primary" role="button"><span className="glyphicon glyphicon-trash"></span></a>
                 </div>
               </p>
