@@ -12,7 +12,7 @@ class ItineraryQueries extends Marty.Queries {
       ItineraryAPI.getAll(res.body.id)
         .then(res => this.dispatch(constants.ITINERARY_RECEIVE, res.body || []))
         .catch(err => this.dispatch(constants.ITINERARY_RECEIVE_FAILED, err))
-    ).catch(err => console.log(err));
+    );
   }
 }
 export default Marty.register(ItineraryQueries);
